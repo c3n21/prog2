@@ -20,6 +20,14 @@ public class IntSet {
     private List<Integer> elements;
 
     /**
+     * [ABS FUN]
+     *      AF(elements) = insieme [x1, x2 ... xn] senza elementi duplicati
+     *
+     * [REP INV]
+     *      elements non deve contenere numeri uguali fra loro
+     */
+
+    /**
      * [CONSTRUCTOR]
      * */
     public IntSet() {
