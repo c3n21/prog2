@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Test {
     public static void main (String args[]) {
+        SimpleMap map = new SimpleMap();
         try (Scanner scanner = new Scanner(System.in)) {
-            SimpleMap map = new SimpleMap();
 
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -18,6 +18,8 @@ public class Test {
                     case '-':
                         String param = line.substring(1).trim();
 
+                        System.out.println("param " + param);
+
                         try {
                             int value = map.get(param);
                             System.out.println(value);
@@ -30,10 +32,10 @@ public class Test {
                         break;
                 }
 
-                System.out.println(map.toString());
             }
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Comando mal formattato", e);
         }
+        System.out.println(map.size());
     }
 }

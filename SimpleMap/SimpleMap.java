@@ -219,6 +219,8 @@ public class SimpleMap {
                         values_gen.next()));
         }
 
+        stringBuilder.substring(0, stringBuilder.length()-2);
+
         return String.format("Map [%s]", stringBuilder.toString());
     }
 
