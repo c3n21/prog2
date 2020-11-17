@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,10 +12,15 @@ import java.util.List;
  *      {@link put}
  *      {@link remove}
  *      {@link get}
+ *      TODO:
+ *      implement {@link toString}
+ *      implement {@link repOk}
+ *      implement {@link equals}
+ *      implement {@link hashCode}
  * </pre>
  * */
 
-public class Map {
+public class SimpleMap {
 
     /**
      * [FIELDS]
@@ -62,9 +68,11 @@ public class Map {
      *      keys.size   == values.size
      * </pre>
      * */
-    public Map () {
+    public SimpleMap () {
         keys   = new ArrayList<>();
         values = new ArrayList<>();
+
+        assert repOk();
     }
 
     /**
@@ -112,6 +120,7 @@ public class Map {
         keys.add(key);
         values.add(value);
 
+        assert repOk();
         return true;
     }
 
@@ -138,20 +147,75 @@ public class Map {
      *
      * [EFFECTS]
      *      {@code rimuove value associato alla chiave key se quest'ultima e' presente}
+     *      {@code return true se key e' presente in keys, altrimenti false}
      *
      * </pre>
      **/
-    public void remove (String key) {
-        
+    public boolean remove (String key) {
+        int index;
+        if ((index = keys.indexOf(key)) != -1) {
+            keys.remove(index);
+            values.remove(index);
+            return true;
+        };
+
+        assert repOk();
+        return false;
     }
 
-    public int get (String key) {
-        return 0;
+    /**
+     * <pre>
+     * [RI PRESERVATION]
+     *      key viene aggiunto <==> key non appartiene a keys
+     *      se key viene aggiunto => value viene aggiunto, quindi 
+     *      {@code values.size()} == {@code keys.size()}
+     *
+     * [OP CORRECTNESS]
+     *      AF(keys, values) = values[key] con {@code key} appartenente a {@code keys}
+     *                         con {@code keys.size == values.size}
+     *                         {@code keys.add(key) => values.add(value)}
+     *
+     * [AI PRESERVATION]
+     *      keys.size   {@code >= 0}
+     *      values.size {@code >= 0}
+     *      keys.size   == values.size
+     *
+     * [MODIFIES]
+     *      {@code Map.keys}
+     *      {@code Map.values}
+     *
+     * [EFFECTS]
+     *      {@code rimuove value associato alla chiave key se quest'ultima e' presente}
+     *      {@code return true se key e' presente in keys, altrimenti false}
+     * @throws NotFoundException se la chiave non e' presente
+     *
+     * </pre>
+     **/
+    public int get (String key) throws NotFoundException {
+        int index = keys.indexOf(key);
+        if (index == -1) {
+            throw new NotFoundException (
+                    String.format("[SimpleMap::get] argument key '%s' non e' presente tra le chiavi! ", key));
+        }
+
+        return values.get(index);
     }
 
     @Override
     public String toString() {
-        return "Map []";
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Iterator <String> keys_gen = keys.iterator();
+        Iterator <Integer> values_gen = values.iterator();
+
+        while (keys_gen.hasNext()) {
+            stringBuilder.append(
+                    String.format("'%s':%d, ", 
+                        keys_gen.next(), 
+                        values_gen.next()));
+        }
+
+        return String.format("Map [%s]", stringBuilder.toString());
     }
 
     @Override
@@ -162,5 +226,9 @@ public class Map {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    private boolean repOk () {
+        return false;
     }
 }
