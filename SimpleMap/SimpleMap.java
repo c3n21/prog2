@@ -102,8 +102,7 @@ public class SimpleMap {
      *
      * [EFFECTS]
      *      {@code Inserisce value nella map}
-     *      restituisce true se e' stato possibile aggiungerlo
-     *      false altrimenti (la chiave e' gia' utilizzata)
+     *      {@code se key e' gia' presente, il value corrispondente viene rimpiazzato}
      *
      * @param key
      *
@@ -112,16 +111,17 @@ public class SimpleMap {
      * @throws IllegalArgumentException se @param key {@code e' gia' presente}
      * </pre>
      **/
-    public boolean put (String key, int value) {
-        if (keys.contains(key)) {
-            return false;
+    public void put (String key, int value) {
+        int index = keys.indexOf(key);
+
+        if (index != -1) {
+            values.set(index, value); //replace value if entry exists
+        } else {
+            keys.add(key); //create entry
+            values.add(value);
         }
-        
-        keys.add(key);
-        values.add(value);
 
         assert repOk();
-        return true;
     }
 
     /**
@@ -219,9 +219,8 @@ public class SimpleMap {
                         values_gen.next()));
         }
 
-        stringBuilder.substring(0, stringBuilder.length()-2);
-
-        return String.format("Map [%s]", stringBuilder.toString());
+        return String.format("Map [%s]", stringBuilder.toString()
+                .replaceAll(", ", ""));
     }
 
     @Override
