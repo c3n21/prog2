@@ -7,29 +7,31 @@ public class Test {
 
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
+                if (line.length() > 0) {
+                    switch(line.charAt(0)) {
+                        case '+':
+                            line = line.substring(1).trim();
+                            String [] params = line.split(" ");
+                            map.put(params[0], Integer.parseInt(params[1]));
+                            break;
 
-                switch(line.charAt(0)) {
-                    case '+':
-                        line = line.substring(1).trim();
-                        String [] params = line.split(" ");
-                        map.put(params[0], Integer.parseInt(params[1]));
-                        break;
+                        case '-':
+                            line = line.substring(1).trim();
+                            params = line.split(" ");
 
-                    case '-':
-                        String param = line.substring(1).trim();
+                            try {
+                                int value = map.get(params[0]);
+                                System.out.println(value);
+                            } catch (NotFoundException e) {
+                                //eventualmente gestire questa eccezione
+                                //ma non e' richiesto dalla consegna
+                                System.out.println(e);
+                            }
 
-                        try {
-                            int value = map.get(param);
-                            System.out.println(value);
-                        } catch (NotFoundException e) {
-                            //eventualmente gestire questa eccezione
-                            //ma non e' richiesto dalla consegna
-                        }
-
-                        map.remove(param);
-                        break;
-                }
-
+                            map.remove(params[0]);
+                            break;
+                    }
+                } 
             }
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Comando mal formattato", e);
