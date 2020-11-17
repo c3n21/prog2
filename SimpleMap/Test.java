@@ -18,8 +18,6 @@ public class Test {
                     case '-':
                         String param = line.substring(1).trim();
 
-                        System.out.println("param " + param);
-
                         try {
                             int value = map.get(param);
                             System.out.println(value);
