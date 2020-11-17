@@ -56,7 +56,7 @@ public class SimpleMap {
     /**
      * <pre>
      * [RI PRESERVATION]
-     *      keys e values vengono istanziati, quindi hanno la stessa dimensione che è 0
+     *      keys e values vengono istanziati, quindi hanno la stessa dimensione che e' 0
      *
      * [OP CORRECTNESS]
      *      AF(keys, values) = keys = {}
@@ -102,7 +102,7 @@ public class SimpleMap {
      *
      * [EFFECTS]
      *      {@code Inserisce value nella map}
-     *      restituisce true se è stato possibile aggiungerlo
+     *      restituisce true se e' stato possibile aggiungerlo
      *      false altrimenti (la chiave e' gia' utilizzata)
      *
      * @param key
@@ -199,6 +199,10 @@ public class SimpleMap {
         }
 
         return values.get(index);
+    }
+
+    public int size () {
+        return keys.size();
     }
 
     @Override
