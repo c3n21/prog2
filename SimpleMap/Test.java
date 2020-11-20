@@ -13,9 +13,12 @@ public class Test {
                         case '+':
                             line = line.substring(1).trim();
                             String [] params = line.split(" ");
-                            map.put(params[0], Integer.parseInt(params[1]));
+                            try {
+                                map.put(params[0], Integer.parseInt(params[1]));
+                            } catch(IllegalArgumentException e) {
+                                e.printStackTrace();
+                            }
                             break;
-
                         case '-':
                             line = line.substring(1).trim();
                             params = line.split(" ");

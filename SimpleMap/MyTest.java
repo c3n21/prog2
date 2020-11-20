@@ -1,7 +1,7 @@
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Test {
+public class MyTest {
     public static void main (String args[]) {
         SimpleMap map = new SimpleMap();
         SimpleMap map2 = new SimpleMap();
@@ -14,8 +14,7 @@ public class Test {
                     switch(line.charAt(0)) {
                         case '+':
                             line = line.substring(1).trim();
-                            String [] params = line.split(" ");
-                            try {
+                            String [] params = line.split(" "); try {
                                 map.put(params[0], Integer.parseInt(params[1]));
                                 map2.put(params[0], Integer.parseInt(params[1]));
                             } catch (IllegalArgumentException e) {
@@ -50,6 +49,8 @@ public class Test {
         System.out.println("Testing equals: " + map.equals(map2));
         System.out.println("Testing map.hashcode: " + map.hashCode());
         System.out.println("Testing map.hashcode: " + map2.hashCode());
+        System.out.println("Testing map.toString() = " + map);
+        System.out.println("Testing map2.toString() = " + map2);
 
     }
 

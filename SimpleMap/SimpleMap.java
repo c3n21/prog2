@@ -19,7 +19,7 @@ import java.util.Spliterator;
  * </pre>
  * */
 
-public class SimpleMap implements Iterable {
+public class SimpleMap {
 
     /**
      * [FIELDS]
@@ -108,18 +108,12 @@ public class SimpleMap implements Iterable {
      *
      * @param value
      *
-     * @throws IllegalArgumentException se @param key {@code e' gia' presente}
-     *
      * </pre>
      * */
     public void put (String key, int value) {
-        if (!entries.stream().filter(entry -> entry.key.equals(key)) //not found
-            .findFirst().isPresent()) {
-            entries.add(new Entry(key, value));
-        } else {
-            throw new IllegalArgumentException(
-                    String.format("[SimpleMap::put] key = '%s', value = '%d' entry is already inside", key, value));
-        }
+        entries.stream().filter(entry -> entry.key.equals(key)) //not found
+            .findFirst().ifPresentOrElse(entry -> entry.value = value,
+                    () -> entries.add(new Entry(key, value)));
 
         assert repOk();
     }
@@ -151,7 +145,7 @@ public class SimpleMap implements Iterable {
      * </pre>
      **/
     public void remove (String key) {
-
+        entries.removeIf(entry -> entry.key.equals(key));
         assert repOk();
     }
 
@@ -175,7 +169,7 @@ public class SimpleMap implements Iterable {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("SimpleMap [");
+        StringBuilder stringBuilder = new StringBuilder("SimpleMap: [");
 
         entries.forEach(entry -> {
             stringBuilder.append(entry + ", ");
@@ -212,23 +206,9 @@ public class SimpleMap implements Iterable {
     }
 
     private boolean repOk () {
-        return false;
-    }
 
-    @Override
-    public Iterator<Entry> iterator() {
-        return new Iterator<>(){
-
-			@Override
-			public boolean hasNext() {
-				return false;
-			}
-
-			@Override
-			public SimpleMap.Entry next() {
-				return null;
-			}
-        };
+        return entries == null || 
+            entries.parallelStream().filter(entry -> Collections.frequency(entries, entry) > 1).count() > 1;
     }
 
     private class Entry {
@@ -255,10 +235,5 @@ public class SimpleMap implements Iterable {
         public String toString() {
             return String.format("'%s': %d", key, value);
         } 
-    }
-
-    @Override
-    public Spliterator spliterator() {
-        throw new UnsupportedOperationException("SimpleMap doesn't implement spliterator");
     }
 }
