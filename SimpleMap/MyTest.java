@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Test {
     public static void main (String args[]) {
         SimpleMap map = new SimpleMap();
+        SimpleMap map2 = new SimpleMap();
+
         try (Scanner scanner = new Scanner(System.in)) {
 
             while (scanner.hasNext()) {
@@ -13,7 +15,12 @@ public class Test {
                         case '+':
                             line = line.substring(1).trim();
                             String [] params = line.split(" ");
-                            map.put(params[0], Integer.parseInt(params[1]));
+                            try {
+                                map.put(params[0], Integer.parseInt(params[1]));
+                                map2.put(params[0], Integer.parseInt(params[1]));
+                            } catch (IllegalArgumentException e) {
+                                e.printStackTrace();
+                            }
                             break;
 
                         case '-':
@@ -24,6 +31,7 @@ public class Test {
                                 int value = map.get(params[0]);
                                 System.out.println(value);
                                 map.remove(params[0]);
+                                map2.remove(params[0]);
                             } catch (NoSuchElementException e) {
                                 //eventualmente gestire questa eccezione
                                 //ma non e' richiesto dalla consegna
@@ -38,5 +46,12 @@ public class Test {
             throw new IllegalArgumentException("Comando mal formattato", e);
         }
         System.out.println(map.size());
+
+        System.out.println("Testing equals: " + map.equals(map2));
+        System.out.println("Testing map.hashcode: " + map.hashCode());
+        System.out.println("Testing map.hashcode: " + map2.hashCode());
+
     }
+
+    
 }

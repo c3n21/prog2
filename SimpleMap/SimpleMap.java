@@ -109,8 +109,9 @@ public class SimpleMap implements Iterable {
      * @param value
      *
      * @throws IllegalArgumentException se @param key {@code e' gia' presente}
+     *
      * </pre>
-     **/
+     * */
     public void put (String key, int value) {
         if (!entries.stream().filter(entry -> entry.key.equals(key)) //not found
             .findFirst().isPresent()) {
@@ -164,7 +165,6 @@ public class SimpleMap implements Iterable {
      * </pre>
      **/
     public int get (String key) {
-
         return entries.stream().filter(entry -> entry.key.equals(key))
             .findFirst().get().value;
     }
@@ -175,18 +175,35 @@ public class SimpleMap implements Iterable {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("SimpleMap [");
 
         entries.forEach(entry -> {
-            stringBuilder.append(entry);
+            stringBuilder.append(entry + ", ");
         });
 
-        return stringBuilder.toString();
+        stringBuilder.append("]");
+
+        return stringBuilder.toString().replace(", ]", "]");
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof SimpleMap)) {
+            return false;
+        }
+
+        SimpleMap sm = (SimpleMap) obj;
+
+        return entries.equals(sm.entries);
     }
 
     @Override
@@ -195,17 +212,7 @@ public class SimpleMap implements Iterable {
     }
 
     private boolean repOk () {
-        //int hash_codes_c [] = new int[keys.size()];
-        //int size = keys.size();
-
-        //for(String key : keys) { //check for duplicated keys
-        //    if (hash_codes_c[key.hashCode() % size]++ > 0) {
-        //        return false;
-        //    }
-        //}
-
         return false;
-
     }
 
     @Override
@@ -221,7 +228,6 @@ public class SimpleMap implements Iterable {
 			public SimpleMap.Entry next() {
 				return null;
 			}
-
         };
     }
 
@@ -234,12 +240,25 @@ public class SimpleMap implements Iterable {
             this.value = value;
         }
 
-        
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Entry)) {
+                return false;
+            }
+
+            Entry entry = (Entry) obj;
+
+            return entry.key.equals(key) && entry.value == value;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("'%s': %d", key, value);
+        } 
     }
 
     @Override
     public Spliterator spliterator() {
         throw new UnsupportedOperationException("SimpleMap doesn't implement spliterator");
     }
-
 }
