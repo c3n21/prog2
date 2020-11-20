@@ -25,6 +25,7 @@ public class Test {
                             } catch (NotFoundException e) {
                                 //eventualmente gestire questa eccezione
                                 //ma non e' richiesto dalla consegna
+                                System.out.println("Not found");
                             }
 
                             map.remove(params[0]);

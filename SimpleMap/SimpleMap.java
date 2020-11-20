@@ -1,6 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
 
 /**
  * <pre>
@@ -12,22 +16,16 @@ import java.util.List;
  *      {@link put}
  *      {@link remove}
  *      {@link get}
- *      TODO:
- *      implement {@link toString}
- *      implement {@link repOk}
- *      implement {@link equals}
- *      implement {@link hashCode}
  * </pre>
  * */
 
-public class SimpleMap {
+public class SimpleMap implements Iterable {
 
     /**
      * [FIELDS]
      * */
 
-    private List <String> keys;
-    private List <Integer> values;
+    private final List<Entry> entries;
 
     /**
      * <pre>
@@ -36,9 +34,9 @@ public class SimpleMap {
      *          e "values" una lista di interi associati alla chiave key (due chiavi diverse possono avere lo stesso value)
      *
      * [RI]
-     *      keys.size === values.size
-     *      keys !== null
-     *      values !== null
+     *      keys.size == values.size
+     *      keys != null
+     *      values != null
      *      keys non deve contenere chiavi uguali
      *                         
      * [AI]
@@ -69,8 +67,7 @@ public class SimpleMap {
      * </pre>
      * */
     public SimpleMap () {
-        keys   = new ArrayList<>();
-        values = new ArrayList<>();
+        entries = new ArrayList<>();
 
         assert repOk();
     }
@@ -82,14 +79,17 @@ public class SimpleMap {
     /**
      * <pre>
      * [RI PRESERVATION]
-     *      key viene aggiunto <==> key non appartiene a keys
-     *      se key viene aggiunto => value viene aggiunto, quindi 
-     *      {@code values.size()} == {@code keys.size()}
+     *      {@code viene aggiunto <==> key non appartiene a keys}
+     *      {@code key viene aggiunto => value viene aggiunto, quindi} 
+     *      {@code values.size() == keys.size()}
      *
      * [OP CORRECTNESS]
      *      AF(keys, values) = values[key] con {@code key} appartenente a {@code keys}
      *                         con {@code keys.size == values.size}
      *                         {@code keys.add(key) => values.add(value)}
+     *      {@code key esiste in keys => values[keys[key]] = value}
+     *      {@code key non esiste in keys => keys.add(key) && values.add(values) }
+     *      {@code => keys.size == values.size}
      *
      * [AI PRESERVATION]
      *      keys.size   {@code >= 0}
@@ -112,13 +112,12 @@ public class SimpleMap {
      * </pre>
      **/
     public void put (String key, int value) {
-        int index = keys.indexOf(key);
-
-        if (index != -1) {
-            values.set(index, value); //replace value if entry exists
+        if (!entries.stream().filter(entry -> entry.key.equals(key)) //not found
+            .findFirst().isPresent()) {
+            entries.add(new Entry(key, value));
         } else {
-            keys.add(key); //create entry
-            values.add(value);
+            throw new IllegalArgumentException(
+                    String.format("[SimpleMap::put] key = '%s', value = '%d' entry is already inside", key, value));
         }
 
         assert repOk();
@@ -127,12 +126,12 @@ public class SimpleMap {
     /**
      * <pre>
      * [RI PRESERVATION]
-     *      key viene aggiunto <==> key non appartiene a keys
-     *      se key viene aggiunto => value viene aggiunto, quindi 
-     *      {@code values.size()} == {@code keys.size()}
+     *      {@code viene aggiunto <==> key non appartiene a keys}
+     *      {@code key viene aggiunto => value viene aggiunto, quindi}
+     *      {@code values.size() == keys.size()}
      *
      * [OP CORRECTNESS]
-     *      AF(keys, values) = values[key] con {@code key} appartenente a {@code keys}
+     *      AF(keys, values) = values[key] con key appartenente a {@code keys}
      *                         con {@code keys.size == values.size}
      *                         {@code keys.add(key) => values.add(value)}
      *
@@ -147,80 +146,42 @@ public class SimpleMap {
      *
      * [EFFECTS]
      *      {@code rimuove value associato alla chiave key se quest'ultima e' presente}
-     *      {@code return true se key e' presente in keys, altrimenti false}
      *
      * </pre>
      **/
-    public boolean remove (String key) {
-        int index;
-        if ((index = keys.indexOf(key)) != -1) {
-            keys.remove(index);
-            values.remove(index);
-            return true;
-        };
+    public void remove (String key) {
 
         assert repOk();
-        return false;
     }
 
     /**
      * <pre>
-     * [RI PRESERVATION]
-     *      key viene aggiunto <==> key non appartiene a keys
-     *      se key viene aggiunto => value viene aggiunto, quindi 
-     *      {@code values.size()} == {@code keys.size()}
-     *
-     * [OP CORRECTNESS]
-     *      AF(keys, values) = values[key] con {@code key} appartenente a {@code keys}
-     *                         con {@code keys.size == values.size}
-     *                         {@code keys.add(key) => values.add(value)}
-     *
-     * [AI PRESERVATION]
-     *      keys.size   {@code >= 0}
-     *      values.size {@code >= 0}
-     *      keys.size   == values.size
-     *
-     * [MODIFIES]
-     *      {@code Map.keys}
-     *      {@code Map.values}
-     *
      * [EFFECTS]
-     *      {@code rimuove value associato alla chiave key se quest'ultima e' presente}
-     *      {@code return true se key e' presente in keys, altrimenti false}
-     * @throws NotFoundException se la chiave non e' presente
+     *      {@code restituisce il valore associato alla chiave key}
+     *
+     * @throws NoSuchElementException se la chiave non e' presente
      *
      * </pre>
      **/
-    public int get (String key) throws NotFoundException {
-        int index = keys.indexOf(key);
-        if (index == -1) {
-            throw new NotFoundException (
-                    String.format("[SimpleMap::get] argument key '%s' non e' presente tra le chiavi! ", key));
-        }
+    public int get (String key) {
 
-        return values.get(index);
+        return entries.stream().filter(entry -> entry.key.equals(key))
+            .findFirst().get().value;
     }
 
     public int size () {
-        return keys.size();
+        return entries.size();
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        Iterator <String> keys_gen = keys.iterator();
-        Iterator <Integer> values_gen = values.iterator();
+        entries.forEach(entry -> {
+            stringBuilder.append(entry);
+        });
 
-        while (keys_gen.hasNext()) {
-            stringBuilder.append(
-                    String.format("'%s':%d, ", 
-                        keys_gen.next(), 
-                        values_gen.next()));
-        }
-
-        return String.format("Map [%s]", stringBuilder.toString()
-                .replaceAll(", ", ""));
+        return stringBuilder.toString();
     }
 
     @Override
@@ -234,6 +195,51 @@ public class SimpleMap {
     }
 
     private boolean repOk () {
+        //int hash_codes_c [] = new int[keys.size()];
+        //int size = keys.size();
+
+        //for(String key : keys) { //check for duplicated keys
+        //    if (hash_codes_c[key.hashCode() % size]++ > 0) {
+        //        return false;
+        //    }
+        //}
+
         return false;
+
     }
+
+    @Override
+    public Iterator<Entry> iterator() {
+        return new Iterator<>(){
+
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+
+			@Override
+			public SimpleMap.Entry next() {
+				return null;
+			}
+
+        };
+    }
+
+    private class Entry {
+        private final String key;
+        private int value;
+
+        Entry(String key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        
+    }
+
+    @Override
+    public Spliterator spliterator() {
+        throw new UnsupportedOperationException("SimpleMap doesn't implement spliterator");
+    }
+
 }
