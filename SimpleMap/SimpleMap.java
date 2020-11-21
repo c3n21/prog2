@@ -207,7 +207,7 @@ public class SimpleMap {
 
     private boolean repOk () {
 
-        return entries == null || 
+        return entries != null &&
             entries.parallelStream().filter(entry -> Collections.frequency(entries, entry) > 1).count() > 1;
     }
 
