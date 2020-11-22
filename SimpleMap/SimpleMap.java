@@ -1,11 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.Spliterator;
 
 /**
  * <pre>
@@ -223,13 +220,13 @@ public class SimpleMap {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("SimpleMap: [");
+        StringBuilder stringBuilder = new StringBuilder("SimpleMap: {");
 
         entries.forEach(entry -> {
             stringBuilder.append(entry + ", ");
         });
 
-        stringBuilder.append("]");
+        stringBuilder.append("}");
 
         return stringBuilder.toString().replace(", ]", "]");
     }
