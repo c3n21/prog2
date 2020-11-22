@@ -30,7 +30,6 @@ public class Test {
                             } catch (NoSuchElementException e) {
                                 //eventualmente gestire questa eccezione
                                 //ma non e' richiesto dalla consegna
-                                System.out.println("Not found");
                             }
 
                             break;
