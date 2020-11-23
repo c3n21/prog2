@@ -1,0 +1,4 @@
+[ExecutionException] Exit status: 1 (non-zero), errors: "Exception in thread "main" EmptyQueueException: can't dequeue, queue is empty
+	at IntQueue.dequeue(IntQueue.java:95)
+	at Test.main(Test.java:17)
+"
