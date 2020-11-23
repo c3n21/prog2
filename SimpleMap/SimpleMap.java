@@ -63,7 +63,7 @@ public class SimpleMap {
     /**
      * <pre>
      * [AF]
-     *      AF(entries) = { entry1, entry2 ... entryn } "entry" è una coppia "key":value, con entry.key_i != entry.key_j e i != j
+     *      AF(entries) = { entry1, entry2 ... entryn } "entry" e una coppia "key":value, con entry.key_i != entry.key_j e i != j
      *
      * [RI]
      *      entries != null
@@ -73,7 +73,7 @@ public class SimpleMap {
      * [AI]
      *      per qualsiasi elemento entry, non ci devono essere altre entry con la stessa chiave
      *      ad ogni chiave corrisponde un solo elemento
-     *      numero di associazioni k -> v in ciascuna SimpleMap è >= 0
+     *      numero di associazioni k -> v in ciascuna SimpleMap e >= 0
      * </pre>
      * */
 
@@ -90,7 +90,7 @@ public class SimpleMap {
      *      crea una mappa vuota
      *
      * [RI PRESERVATION]
-     *      entries viene inizializzato, perciò non è null         
+     *      entries viene inizializzato, perciò non e null         
      *      entries non contiene alcun valore
      *      entries == 0
      *
@@ -98,7 +98,7 @@ public class SimpleMap {
      *      AF(entries) = {}
      *
      * [AI PRESERVATION]
-     *      this è vuoto => entries.size() == 0
+     *      this e vuoto => entries.size() == 0
      *
      * </pre>
      * */
