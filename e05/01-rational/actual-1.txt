@@ -1,18 +1,4 @@
-1/2
-1/2
-3/2
-3/5
-1/7
-8/9
-2/1
 3863/630
 2/35
 35/8
-rational = 1/2
-rational = 1/2
-rational = 3/2
-rational = 3/5
-rational = 1/7
-rational = 8/9
-rational = 2/1
 1
