@@ -2,8 +2,8 @@
  * [OVERVIEW]
  *      classe che rappresenta gli insiemi di interi matematici.
  *      Una volta istanziato un {@code IntSet} e' possibile manipolarlo
- *
- * */
+ * 
+ */
 
 import java.util.ArrayList;
 import java.util.List;
