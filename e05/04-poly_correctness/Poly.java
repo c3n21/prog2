@@ -14,7 +14,7 @@ public class Poly {
 	 *      AF(coeff) = 0 if coeff.length = 0.
      * 
      * [REP INV]
-     *      coeff non deve essere null, e l'ultimo elemento non può essere 0.
+     *      coeff non deve essere null, e l'ultimo elemento non puo' essere 0.
 	 */
 
     /**
@@ -69,19 +69,19 @@ public class Poly {
      *      restituisce un polinomio risultato della somma tra this e q
      *
      * [OP CORRECTNESS]
-	 *      se this e q hanno lo stesso grado, allora verifico se il polinomio risultate dalla somma dei due termini sia != 0, se non lo è
+	 *      se this e q hanno lo stesso grado, allora verifico se il polinomio risultate dalla somma dei due termini sia != 0, se non lo e'
      *      posso creare un polinomio di grado minore (new_deg).
      *
      *      creo un nuovo polinomio res di grado new_deg + 1 (ho i termini da x^1 fino a x^new_deg e +1 per il termine noto)
-     *      res.coeff[i] = this.coeff[i] + q.coeff[i] con i:= 0 ... small.length -1 (perché altrimenti va out of bounds)
-     *      e dopo per i := small.coeff.length - 1  < large.length copio i rimanenti termini di large dato che i coeff di small sono 
-     *      già terminati
+     *      res.coeff[i] = this.coeff[i] + q.coeff[i] con i:= 0 ... small.length -1
+     *      e dopo per i := small.coeff.length < large.length copio i rimanenti termini di large dato che i coeff di small sono 
+     *      gia' terminati
      *
      * [REP PRESERVATION]
-     *      res.coeff.length è almeno 0
+     *      res.coeff.length e' almeno 0
      *      
      * [AI PRESERVATION]
-     *      this non è modificato
+     *      this non e' modificato
      *
 	 * @param q
      *
@@ -112,8 +112,8 @@ public class Poly {
 		for (int i = 0; i < small.coeff.length && i <= new_deg; i++) 
 			res.coeff[i] = small.coeff[i] + large.coeff[i];
 
-		for (int i = small.coeff.length - 1; j <= new_deg; j++) 
-			res.coeff[j] = large.coeff[j];
+		for (int i = small.coeff.length; i <= new_deg; i++) 
+			res.coeff[i] = large.coeff[i];
 
 		assert res.repOk();
 		return res;
