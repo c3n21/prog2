@@ -11,7 +11,7 @@ public class Test {
             while (scanner.hasNext()) {
                 int a = scanner.nextInt(), b = scanner.nextInt();
                 Rational rational = new Rational(a, b);
-                count += rationals.stream().filter((element)-> element.equals(rational))
+                count += rationals.stream().filter((element) -> element.equals(rational))
                     .findAny().isPresent()? 1: 0;
                 rationals.add(rational);
             }
@@ -24,7 +24,7 @@ public class Test {
             if (tmp == null) {
                 tmp = rational;
             } else {
-                tmp = tmp.add(rational);
+                tmp = tmp.plus(rational);
             }
         }
         System.out.println(tmp);

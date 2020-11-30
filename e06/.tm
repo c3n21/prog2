@@ -14,14 +14,11 @@ from urllib.request import urlopen
 
 # 
 if __name__ == "__main__":
-    sys.excepthook = lambda t, v, tb: sys.exit(
-        'Si è verificato un errore inatteso del client!'
-    )
-# 
-
+    sys.excepthook = lambda t, v, tb: sys.exit('Si è verificato un errore inatteso del client!' + str(t) + str(v) + str(tb))
+## 
 
 BASE_URL = """http://reaper.srv.di.unimi.it/tm/prog2ese/e06/"""
-HOME = """/home/nezuko/Documents/UniMi/Programmazione_II/esercitazioni/e06/"""
+HOME = """/home/nezuko/Documents/UniMi/Programmazione_II/esercitazioni/e06"""
 SIGNATURE = """943284.3ZNkbomJvl3gFdSFBHOhAPn8dtE"""
 INFO = """Chen Zhifan"""
 

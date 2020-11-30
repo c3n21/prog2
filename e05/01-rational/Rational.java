@@ -2,10 +2,10 @@ import java.util.Objects;
 
 /**
  * [OVERVIEW]
- *      le istante di questa classe rappresentano numeri razionali.
+ *      Le istante di questa classe rappresentano numeri razionali.
  *      Gli oggetti di questa classe non sono mutabili.
  *      Un numero razionale tipico e' n/d dove n e d sono numeri interi e d e' diverso da 0;
- * */
+ */
 
 public class Rational {
     /**
@@ -14,7 +14,8 @@ public class Rational {
 
     /**
      * Campi per la rappresentazione del numeratore e denominatore del numero razionale
-     * */
+     * 
+     */
     private int numerator, denominator;
 
     /**
@@ -36,6 +37,7 @@ public class Rational {
      * [MODIFIES]
      *      this.numerator
      *      this.denominator
+     *
      * [EFFECTS]
      *      inizializza this affinche' rappresenti un razionale n/d valido.
      *      d == 0 solleva eccezione {@link ArithmeticException}
@@ -52,7 +54,7 @@ public class Rational {
      *
      *
      *  @throws ArithmeticException se d == 0
-     * */
+     */
     public Rational(int n, int d) {
         if (d == 0) throw new ArithmeticException(String.format("Numero razionale illegale. Denominatore non puo' essere 0. n = %d, d = %d", n, d ));
         this.numerator = n*d > 0? Math.abs((n)) : -Math.abs(n);
@@ -82,38 +84,32 @@ public class Rational {
      *
      *  [OP CORRECTNESS]
      *      AF(numerator, denominator) = numerator/denominator
-     *      = (numerator/cd)/(denominator/cd) dove cd = gcd(|numerator|, denominator)
+     *      = (numerator/cd)/(denominator/cd) dove cd = gcd(numerator, denominator)
      *
-     * */
+     * 
+     */
     private void reduce() {
-        int cd = gcd(Math.abs(numerator), Math.abs(denominator));
+        int cd = gcd(Math.abs(numerator), denominator);
         numerator /= cd;
         denominator /= cd;
     }
 
     /**
      * [REQUIRES]
-     *      this.denominator != 0
-     *
-     * [MODIFIES]
-     *      potrebbe modificare this se non e' ridotta
+     *      b != 0
      *
      * [EFFECTS]
-     *      restituisce il massimo comun divisore tra a e b
-     *      Solleva un'eccezione se a o b minore 0
+     *      restituisce il valore assoluto del massimo comun divisore tra a e b
      *
-     *
-     * */
+     * 
+     */
     private static int gcd(int a, int b) {
-        if (a < 0 || b < 0) throw new IllegalArgumentException("A e B devono essere piu' grandi di 0 a = " + a + "; b = " + b);
-
         while (b != 0) {
             int tmp = b;
             b = a % b;
             a = tmp;
         }
-
-        return a;
+        return Math.abs(a);
     }
 
     /**
@@ -130,7 +126,7 @@ public class Rational {
      *
      *  @throws NullPointerException
      * */
-    public Rational add(Rational o) {
+    public Rational plus(Rational o) {
         Objects.requireNonNull(o);
 
         return new Rational(
@@ -184,14 +180,12 @@ public class Rational {
      * [EFFECTS]
      *      restituisce il numero razionale this - o
      *
-     *  [RI PRESERVATION]
+     * [OP CORRECTNESS]
      *      
      * */
     public Rational sub(Rational o) {
-        return add(o.minus());
+        return plus(o.minus());
     };
-
-
 
     /**
      * [EFFECTS]
@@ -219,7 +213,7 @@ public class Rational {
 
     @Override
     public String toString() {
-        //if (denominator == 1) return "" + numerator;
+        if (denominator == 1) return "" + numerator;
         return numerator + "/" + denominator;
     }
 
@@ -230,15 +224,15 @@ public class Rational {
         return result;
     }
 
-    /*
-     * []
-     *
-     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Rational)) return false;
         Rational other = (Rational) o;
 
-        return numerator == other.numerator && denominator == other.denominator;
+        return equals(other);
+    }
+
+    public boolean equals(Rational o) {
+        return numerator == o.numerator && denominator == o.denominator;
     }
 }
