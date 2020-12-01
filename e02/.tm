@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
 
 BASE_URL = """http://reaper.srv.di.unimi.it/tm/prog2ese/e02/"""
-HOME = """/workspace/esercitazioni/e02"""
+HOME = """/home/nezuko/Documents/UniMi/Programmazione_II/esercitazioni/e02"""
 SIGNATURE = """943284.og1-rB7v6bS-HXks3vb5nUq9z7k"""
 INFO = """Chen Zhifan"""
 

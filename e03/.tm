@@ -20,8 +20,9 @@ if __name__ == "__main__":
 # 
 
 
+
 BASE_URL = """http://reaper.srv.di.unimi.it/tm/prog2ese/e03/"""
-HOME = """/workspace/esercitazioni/e03"""
+HOME = """/home/nezuko/Documents/UniMi/Programmazione_II/esercitazioni/e03"""
 SIGNATURE = """943284.gm_tOjuFn5jZbIG_1zdcawqJYtU"""
 INFO = """Chen Zhifan"""
 
