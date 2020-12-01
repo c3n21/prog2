@@ -168,17 +168,25 @@ public final class Poly {
      * [EFFECTS]
      *      Restituisce il prodotto tra this e q
 	 *
+     * [OP CORRECTNESS]
+     *      per ogni termine trm di this.trms, creo un nuovo polinomio dato dal prodotto di trm
+     *      ed ogni termine di q.trms, e lo sommo a res
+     *
 	 * @param q
 	 * @return this*q
 	 */
 	public Poly mul(Poly q) {
-		Poly r = new Poly(this.coeff.length + q.coeff.length - 1);
-		for (int i = 0; i < this.coeff.length; i++)
-			for (int j = 0; j <= q.coeff.length - 1; j++)
-				r.coeff[i + j] += this.coeff[i] * q.coeff[j];
+		Poly res = new Poly();
 
-		assert r.repOk();
-		return r;
+        for (Monomial trm : trms) {
+            for (Monomial other_trm : q.trms) {
+                Poly tmp = new Poly(trm.coeff * other_trm.coeff, trm.degree * other_trm.degree);
+                res = res.add(tmp);
+            }
+        }
+
+		assert res.repOk();
+		return res;
 	}
 
 	/**
