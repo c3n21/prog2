@@ -186,16 +186,19 @@ public final class Poly {
      *      Restituisce l'opposto di this
      *
      * [OP CORRECTNESS]
-     *      creo un nuovo polinomio con this.coeff.length termini
-     *      res.coeff[n] = -this.coeff[n] per n = 0 ... this.coeff.length -1
+     *      creo un nuovo polinomio 0
+     *      per ogni termine trm (che è un Monomial) creo un nuovo monomio che ha il coefficiente opposto
+     *      e lo aggiungo nella lista dei monomi del polinomio
+     *
+     * [RI PRESERVATION]
 	 *
 	 * @return -this
 	 */
 	public Poly minus() {
-		Poly res = new Poly(this.coeff.length);
+		Poly res = new Poly();
 
-		for (int n = 0; n < this.coeff.length; n++) {
-            res.coeff[n] = -this.coeff[n];
+        for (Monomial trm : trms) {
+            res.trms.add(new Monomial(-trm.coeff, trm.degree));
         }
 
 		assert res.repOk();
