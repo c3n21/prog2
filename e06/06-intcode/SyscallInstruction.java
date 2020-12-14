@@ -1,4 +1,3 @@
-package src.instruction.syscall;
 
 import src.instruction.Instruction;
 import src.vm.memory.MemoryInterface;

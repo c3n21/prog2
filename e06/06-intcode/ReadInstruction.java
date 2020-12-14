@@ -1,8 +1,6 @@
-package src.instruction.syscall;
-
 import java.util.Scanner;
 
-import src.vm.memory.MemoryInterface;
+import MemoryInterface;
 
 final public class ReadInstruction extends SyscallInstruction {
 	public ReadInstruction(MemoryInterface memory, int arg1) {

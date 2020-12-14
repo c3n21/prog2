@@ -1,5 +1,3 @@
-package src.instruction;
-
 public abstract class Instruction {
     final public int opcode;
 

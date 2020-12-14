@@ -1,5 +1,3 @@
-package src.vm.memory;
-
 /**
  * [OVERVIEW]
  *      Memory represents the central memory of a VonNeumann machine

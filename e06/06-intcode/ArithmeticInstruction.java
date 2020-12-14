@@ -1,4 +1,3 @@
-package src.instruction.arithmetic;
 
 import src.instruction.Instruction;
 import src.vm.memory.Writebackable;

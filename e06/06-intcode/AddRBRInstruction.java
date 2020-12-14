@@ -1,4 +1,3 @@
-package src.instruction.syscall;
 
 import src.vm.register.RegisterInterface;
 

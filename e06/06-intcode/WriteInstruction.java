@@ -1,4 +1,3 @@
-package src.instruction.syscall;
 
 final public class WriteInstruction extends SyscallInstruction {
 

@@ -1,4 +1,3 @@
-package src.vm.register;
 
 public interface RegisterInterface {
 

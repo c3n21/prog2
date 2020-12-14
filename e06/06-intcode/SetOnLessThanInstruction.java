@@ -1,4 +1,3 @@
-package src.instruction.seton;
 
 import src.vm.memory.Writebackable;
 

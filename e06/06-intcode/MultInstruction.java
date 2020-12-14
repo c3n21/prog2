@@ -1,6 +1,4 @@
-package src.instruction.arithmetic;
-
-import src.vm.memory.Writebackable;
+import Writebackable;
 
 final public class MultInstruction extends ArithmeticInstruction{
 

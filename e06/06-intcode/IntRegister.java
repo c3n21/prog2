@@ -1,5 +1,3 @@
-package src.vm.register;
-
 final public class IntRegister implements RegisterInterface {
     private int register;
 

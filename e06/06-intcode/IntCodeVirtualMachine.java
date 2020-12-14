@@ -1,21 +1,19 @@
-package src.vm;
-
-import src.instruction.arithmetic.MultInstruction;
-import src.instruction.arithmetic.SumInstruction;
-import src.instruction.branch.BranchEqualZeroInstruction;
-import src.instruction.branch.BranchNotEqualZeroInstruction;
-import src.instruction.seton.SetOnEqualsInstruction;
-import src.instruction.seton.SetOnLessThanInstruction;
-import src.instruction.syscall.AddRBRInstruction;
-import src.instruction.syscall.HaltInstruction;
-import src.instruction.syscall.ReadInstruction;
-import src.instruction.syscall.WriteInstruction;
+import MultInstruction;
+import SumInstruction;
+import BranchEqualZeroInstruction;
+import BranchNotEqualZeroInstruction;
+import SetOnEqualsInstruction;
+import SetOnLessThanInstruction;
+import AddRBRInstruction;
+import HaltInstruction;
+import ReadInstruction;
+import WriteInstruction;
 
 import java.util.Scanner;
 
-import src.instruction.Instruction;
-import src.vm.memory.Memory;
-import src.vm.register.IntRegister;
+import Instruction;
+import memory.Memory;
+import register.IntRegister;
 
 /**
  * Questa classe rappresenta la macchina virtuale che serve per compilare il linguaggio IntCode tramite un'architettura
@@ -96,7 +94,7 @@ final public class IntCodeVirtualMachine {
             return new HaltInstruction(memory, instruction_reg.get());
         }
 
-        throw new UnsupportedOperationException(String.format("Operazione con OPCODE '%s' non è supportata", opcode));
+        throw new UnsupportedOperationException(String.format("Operazione con OPCODE '%s' non e' supportata", opcode));
 	}
     
     private int[] getArguments(String formatted_instruction) {

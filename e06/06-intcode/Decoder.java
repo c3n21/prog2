@@ -1,4 +1,3 @@
-package src.vm.decoder;
 
 import src.instruction.Instruction;
 

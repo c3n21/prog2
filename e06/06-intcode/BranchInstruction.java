@@ -1,4 +1,3 @@
-package src.instruction.branch;
 
 import src.instruction.Instruction;
 import src.vm.register.RegisterInterface;
