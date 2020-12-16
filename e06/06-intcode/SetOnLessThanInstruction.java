@@ -1,6 +1,3 @@
-
-import src.vm.memory.Writebackable;
-
 final public class SetOnLessThanInstruction extends SetOnInstruction {
 
 	public SetOnLessThanInstruction(Writebackable memory, int arg1, int arg2, int arg3) {

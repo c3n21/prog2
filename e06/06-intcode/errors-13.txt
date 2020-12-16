@@ -1,0 +1,8 @@
+[ExecutionException] Exit status: 1 (non-zero), errors: "Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 99 out of bounds for length 11
+	at Memory.write(Memory.java:77)
+	at SetOnInstruction.execute(SetOnInstruction.java:18)
+	at SetOnLessThanInstruction.execute(SetOnLessThanInstruction.java:12)
+	at IntCodeVirtualMachine.execute(IntCodeVirtualMachine.java:47)
+	at IntCodeVirtualMachine.run(IntCodeVirtualMachine.java:36)
+	at Test.main(Test.java:16)
+"

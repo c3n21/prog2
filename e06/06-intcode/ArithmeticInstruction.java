@@ -1,12 +1,8 @@
-
-import src.instruction.Instruction;
-import src.vm.memory.Writebackable;
-
 public abstract class ArithmeticInstruction extends Instruction{
 
     final protected int arg1, arg2, arg3;
     protected int res;
-    final protected Writebackable memory;
+    final private Writebackable memory;
 
 	protected ArithmeticInstruction(int opcode, Writebackable memory, int arg1, int arg2, int arg3) {
 		super(opcode);
@@ -21,5 +17,17 @@ public abstract class ArithmeticInstruction extends Instruction{
     public boolean execute() {
         memory.write(arg3, res);
         return true;
+    }
+
+    final public static Instruction createArithmeticInstruction(String opcode, Writebackable memory, int arg1, int arg2, int arg3) {
+        if (opcode.equals("01")) {
+            return new SumInstruction(memory, arg1, arg2, arg3);
+        }
+
+        if (opcode.equals("02")) {
+            return new MultInstruction(memory, arg1, arg2, arg3);
+        }
+
+        throw new IllegalArgumentException("opcode = " + opcode + " not supported!");
     }
 }

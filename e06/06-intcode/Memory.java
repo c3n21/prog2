@@ -76,4 +76,26 @@ public class Memory implements MemoryInterface, Writebackable{
 	public void write(int address, int result) {
         memory[address] = result;
 	}
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("Memory : [");
+
+        for (int i = 0; i < memory.length; i++) {
+            stringBuilder.append(memory[i]);
+            if (i == memory.length-1) {
+                break;
+            }
+            stringBuilder.append(",");
+            
+        }
+        for (int i : memory) {
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    public int getSegmentEnd() {
+        return segment_end;
+    }
 }

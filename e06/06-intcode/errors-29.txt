@@ -1,0 +1,6 @@
+[ExecutionException] Exit status: 1 (non-zero), errors: "Exception in thread "main" java.lang.IllegalAccessError: Accessing out of bounds memory, IP = 1006
+	at Memory.fetch(Memory.java:39)
+	at IntCodeVirtualMachine.decode(IntCodeVirtualMachine.java:95)
+	at IntCodeVirtualMachine.run(IntCodeVirtualMachine.java:33)
+	at Test.main(Test.java:16)
+"

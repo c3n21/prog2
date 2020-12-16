@@ -1,6 +1,3 @@
-
-import src.vm.memory.MemoryInterface;
-
 final public class HaltInstruction extends SyscallInstruction {
     final private int address;
 

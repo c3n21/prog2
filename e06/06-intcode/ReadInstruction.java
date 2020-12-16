@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import MemoryInterface;
-
 final public class ReadInstruction extends SyscallInstruction {
 	public ReadInstruction(MemoryInterface memory, int arg1) {
 		super(3, null, memory, arg1);

@@ -6,8 +6,9 @@ final public class IntRegister implements RegisterInterface {
     }
 
 	@Override
-	public void set(int value) {
+	public RegisterInterface set(int value) {
 	    register = value;
+        return this;
 	}
 
 	@Override

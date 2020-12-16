@@ -1,5 +1,4 @@
 
-import src.vm.register.RegisterInterface;
 
 final public class BranchNotEqualZeroInstruction extends BranchInstruction {
     public BranchNotEqualZeroInstruction(RegisterInterface instruction_reg, int arg1, int arg2) {

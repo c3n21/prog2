@@ -1,6 +1,3 @@
-
-import src.vm.register.RegisterInterface;
-
 final public class BranchEqualZeroInstruction extends BranchInstruction {
 
 	public BranchEqualZeroInstruction(RegisterInterface instruction_register, int arg1, int arg2) {

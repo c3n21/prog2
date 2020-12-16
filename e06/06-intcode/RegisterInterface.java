@@ -1,6 +1,5 @@
-
 public interface RegisterInterface {
 
-    public void set(int value);
+    public RegisterInterface set(int value);
     public int get();
 }
