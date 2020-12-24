@@ -1,3 +1,5 @@
+package collections.queue;
+
 public interface Queue<E> extends Iterable<E> {
     int size();
     boolean isEmpty();

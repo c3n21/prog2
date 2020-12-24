@@ -1,3 +1,5 @@
+package collections.set;
+
 public interface Set<E> extends Iterable<E> {
     int size();
     boolean isEmpty();
