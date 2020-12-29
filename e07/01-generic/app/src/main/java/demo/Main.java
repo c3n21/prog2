@@ -6,6 +6,8 @@ import collections.map.*;
 import collections.queue.*;
 
 public class Main {
+    public static String res;
+
     public static void main(String args[]) {
         System.out.println("args[0] = " + args[0]);
         String arg = args[0];
@@ -24,7 +26,8 @@ public class Main {
                     map.put(key, scanner.nextInt());
                 }
 
-                System.out.println(map.get(word));
+                Main.res = map.get(word).toString();
+                System.out.println(Main.res);
             }
 
             if (arg.equals("Q")) {
