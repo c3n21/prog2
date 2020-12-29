@@ -1,7 +1,5 @@
 package collections.map;
 
-import java.util.NoSuchElementException;
-
 public interface Map<K, V> extends Iterable<Map.Entry<K,V>> {
     int size();
     boolean isEmpty();

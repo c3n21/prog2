@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DumbMap<K,V> implements Map<K,V>{
-    private List<DumbEntry<K,V>> entries;
+    private List<Map.Entry<K,V>> entries;
 
     public static class DumbEntry<K,V> implements Map.Entry<K,V> {
 
@@ -63,11 +63,23 @@ public class DumbMap<K,V> implements Map<K,V>{
             this.value = value;
 			return old;
 		}
+
+        @Override
+        public int hashCode() {
+            int hash = 1;
+            hash = 31*hash + key.hashCode();
+            hash = 31*hash + value.hashCode();
+            return hash;
+        }
+
+        @Override
+        public String toString() {
+            return "" + key + ": " + value;
+        }
     }
 
-	@Override
-	public Iterator<Entry<K, V>> iterator() {
-		return null;
+	public Iterator<Map.Entry<K,V>> iterator() {
+		return entries.iterator();
 	}
 
     /**
@@ -114,7 +126,7 @@ public class DumbMap<K,V> implements Map<K,V>{
      */
 	@Override
 	public V get(Object key) {
-        DumbEntry<K,V> entry = getEntry(key);
+        Map.Entry<K,V> entry = getEntry(key);
 
 		return entry.getValue();
 	}
@@ -141,7 +153,7 @@ public class DumbMap<K,V> implements Map<K,V>{
      */
 	@Override
 	public V put(K key, V value) {
-        DumbEntry<K,V> entry = getEntry(key);
+        Map.Entry<K,V> entry = getEntry(key);
 
 		return entry.setValue(value);
 	}
@@ -160,7 +172,7 @@ public class DumbMap<K,V> implements Map<K,V>{
      */
 	@Override
 	public V remove(Object key) {
-        DumbEntry<K,V> to_remove = getEntry(key);
+        Map.Entry<K,V> to_remove = getEntry(key);
         if (to_remove != null) {
             entries.remove(to_remove);
             return to_remove.getValue();
@@ -180,8 +192,19 @@ public class DumbMap<K,V> implements Map<K,V>{
      *      else:
      *          return null
      */
-    private DumbEntry<K,V> getEntry(Object key) {
+    private Map.Entry<K,V> getEntry(Object key) {
         return entries.stream().filter(entry -> entry.getKey().equals(key)).findFirst().orElseGet(() -> null); 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+
+        for (Map.Entry<K,V> entry: entries) {
+            hash = 31*hash + entry.hashCode();
+        }
+
+        return hash;
     }
 
     @Override
@@ -189,22 +212,8 @@ public class DumbMap<K,V> implements Map<K,V>{
         StringBuilder stringBuilder = new StringBuilder("DumbMap: {\n");
 
         entries.forEach(entry -> stringBuilder.append("\t" + entry + ",\n"));
-        stringBuilder.append("\b\b");
+        stringBuilder.append("\b\b}");
 
         return stringBuilder.toString();
-    }
-
-    private boolean repOK() {
-        for (DumbEntry<K,V> entry1: entries) {
-            for (DumbEntry<K,V> entry2: entries) {
-                if(entry1 != entry2) { //not the same object
-                    if(entry1.key.equals(entry2.key)) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
     }
 }
