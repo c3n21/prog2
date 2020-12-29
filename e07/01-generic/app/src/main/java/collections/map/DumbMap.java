@@ -76,6 +76,23 @@ public class DumbMap<K,V> implements Map<K,V>{
         public String toString() {
             return "" + key + ": " + value;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof Map.Entry) {
+                Map.Entry<?, ?> other = (Map.Entry<?,?>) obj;
+                return equals(other);
+            }
+            return false;
+        }
+
+        public boolean equals(Map.Entry<K,V> other) {
+            if (this == other) {
+                return true;
+            }
+
+            return true;
+        }
     }
 
 	public Iterator<Map.Entry<K,V>> iterator() {
@@ -215,5 +232,34 @@ public class DumbMap<K,V> implements Map<K,V>{
         stringBuilder.append("\b\b}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DumbMap) {
+            Map<?,?> map = (Map<?,?>) obj;
+            return equals(map);
+        }
+        return false;
+    }
+
+    public boolean equals(Map<K,V> map) {
+        if(map == this) {
+            return true;
+        }
+
+        if (this.size() != map.size()) {
+            return false;
+        }
+
+        for (Map.Entry<K,V> entry : map) {
+            Map.Entry<K,V> found = getEntry(entry.getKey());
+
+            if (found == null || !found.equals(entry)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
