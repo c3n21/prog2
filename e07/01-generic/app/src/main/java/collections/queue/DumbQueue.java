@@ -29,26 +29,22 @@ public class DumbQueue<T> implements Queue<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return elements.iterator();
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return elements.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return elements.isEmpty();
 	}
 
 	@Override
 	public boolean enqueue(T e) {
-		// TODO Auto-generated method stub
-		return false;
+		return elements.add(e);
 	}
 
 	@Override
