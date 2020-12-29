@@ -31,11 +31,18 @@ public class Main {
             }
 
             if (arg.equals("Q")) {
-                Queue<Integer> queue;
+                Queue<Integer> queue = new DumbQueue<>();
+                while (scanner.hasNext()) {
+                    queue.enqueue(scanner.nextInt());
+                }
+
+                while (!queue.isEmpty()) {
+                    System.out.println(queue.dequeue());
+                }
             }
 
             if (arg.equals("S")) {
-
+                
             }
         }
 

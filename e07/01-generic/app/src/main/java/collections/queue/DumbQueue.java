@@ -42,14 +42,44 @@ public class DumbQueue<T> implements Queue<T> {
 		return elements.isEmpty();
 	}
 
+    /**
+     * @param e - element to add
+     * @return - true as specified in {@link java.util.Collection}
+     *
+     * [OP CORRECTNESS]
+     *      adds the element at the end of the list
+     *
+     * [REP PRESERVATION]
+     *      the rep is preservated since the new element is added at the end of the list
+     */
 	@Override
 	public boolean enqueue(T e) {
 		return elements.add(e);
 	}
 
+    /**
+     * @return - pops the value of the first element
+     *
+     * [OP CORRECTNESS]
+     *      if queue != empty:
+     *          retrieves the first element and stores it
+     *          removes the element from the list
+     *      else:
+     *          element is null
+     *
+     * [REP PRESERVATION]
+     */
 	@Override
 	public T dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+        T element;
+
+        if (elements.size() > 0) {
+            element = elements.get(0);
+            elements.remove(0);
+        } else {
+            element = null;
+        }
+
+		return element;
 	}
 }
