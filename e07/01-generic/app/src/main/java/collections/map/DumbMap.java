@@ -1,5 +1,7 @@
 package collections.map;
 
+import java.util.ArrayList;
+
 /**
  * Overview:
  *
@@ -10,7 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DumbMap<K,V> implements Map<K,V>{
-    private List<Map.Entry<K,V>> entries;
+    private final List<Map.Entry<K,V>> entries;
+
+    public DumbMap() {
+        entries = new ArrayList<>();
+    }
 
     public static class DumbEntry<K,V> implements Map.Entry<K,V> {
 
@@ -172,6 +178,12 @@ public class DumbMap<K,V> implements Map<K,V>{
 	public V put(K key, V value) {
         Map.Entry<K,V> entry = getEntry(key);
 
+
+        if (entry == null) {
+            entry = new DumbEntry<>(key);
+            entries.add(entry);
+        }
+
 		return entry.setValue(value);
 	}
 
@@ -210,7 +222,12 @@ public class DumbMap<K,V> implements Map<K,V>{
      *          return null
      */
     private Map.Entry<K,V> getEntry(Object key) {
-        return entries.stream().filter(entry -> entry.getKey().equals(key)).findFirst().orElseGet(() -> null); 
+        for (Entry<K,V> entry : entries) {
+            if (entry.getKey().equals(key)) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     @Override

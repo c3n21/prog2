@@ -8,8 +8,24 @@ plugins {
     id 'application' 
 }
 
+apply plugin: "java"
+description = "Gradle Command Line Arguments examples"
+
+task propertyTypes(){
+    doLast{
+        if (project.hasProperty("args")) {
+            println "Our input argument with project property ["+project.getProperty("args")+"]"
+        }
+        println "Our input argument with system property ["+System.getProperty("args")+"]"
+    }
+}
+
 repositories {
     jcenter() 
+}
+
+run {
+    standardInput = System.in
 }
 
 dependencies {
