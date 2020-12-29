@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import collections.map.*;
 import collections.queue.*;
+import collections.set.DumbSet;
+import collections.set.Set;
 
 public class Main {
     public static String res;
@@ -36,13 +38,19 @@ public class Main {
                     queue.enqueue(scanner.nextInt());
                 }
 
-                while (!queue.isEmpty()) {
-                    System.out.println(queue.dequeue());
-                }
+                System.out.println(queue);
             }
 
             if (arg.equals("S")) {
-                
+                Set<String> set = new DumbSet<>();
+
+                while (scanner.hasNext()) {
+                    set.add(scanner.next());
+                }
+
+                Main.res = String.format("%d", set.size());
+
+                System.out.println(Main.res);
             }
         }
 

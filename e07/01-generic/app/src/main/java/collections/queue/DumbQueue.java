@@ -3,6 +3,7 @@ package collections.queue;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Overview:
@@ -82,4 +83,9 @@ public class DumbQueue<T> implements Queue<T> {
 
 		return element;
 	}
+
+    @Override
+    public String toString() {
+        return "[" + elements.stream().map(element -> element.toString()).collect(Collectors.joining(",")) + "]";
+    }
 }
